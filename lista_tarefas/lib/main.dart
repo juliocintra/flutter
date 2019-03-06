@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
 
 
   @override
-  void initState() {
+  void initState() {    // lê os dados quando o app abre
     super.initState();
 
     _readData().then((data) {
