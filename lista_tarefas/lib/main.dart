@@ -24,6 +24,8 @@ class _HomeState extends State<Home> {
 
   Map<String, dynamic> _lastRemoved;
   int _lastRemovedPos;
+  bool _validate = false;
+
 
   @override
   void initState() {
@@ -40,6 +42,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text('Lista de Tarefas'),
         backgroundColor: Colors.blueAccent,
       ),
@@ -54,6 +57,7 @@ class _HomeState extends State<Home> {
                     controller: _toDoController,
                     decoration: InputDecoration(
                         labelText: 'Nova tarefa',
+                        errorText: _validate ? 'Campo não pode estar vazio' : null,
                         labelStyle: TextStyle(color: Colors.blueAccent)
                     ),
                   ),
@@ -154,6 +158,14 @@ class _HomeState extends State<Home> {
 
   void _addToDo() {
     setState(() {
+
+      if (_toDoController.text.isEmpty) {
+        _validate = true;
+        return;
+      }
+
+      _validate = false;
+
       Map<String, dynamic> newToDo = Map();
       newToDo['title'] = _toDoController.text;
       _toDoController.text = '';
