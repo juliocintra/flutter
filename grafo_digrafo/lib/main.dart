@@ -14,6 +14,7 @@ class _HomePageState extends State<HomePage> {
 
   int groupValue;
   int vertices = 2;
+  int arestas = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                     fontSize: 18.0, fontWeight: FontWeight.bold),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(0.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -85,7 +86,45 @@ class _HomePageState extends State<HomePage> {
                 )
               ],
             ),
-          )
+          ),
+          Divider(),
+          Container(
+            child: Column(
+              children: <Widget>[
+                Text('Arestas: $arestas', style: TextStyle(
+                    fontSize: 18.0, fontWeight: FontWeight.bold),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(0.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      FlatButton(
+                        child: Icon(Icons.remove),
+                        onPressed: (){
+                          _changeArestaValue(-1);
+                        },
+                      ),
+                      FlatButton(
+                        child: Icon(Icons.add),
+                        onPressed: (){
+                          _changeArestaValue(1);
+                        },
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          Divider(),
+          Container(
+              color: Colors.red,
+              child: Align(
+                alignment: Alignment(-0.9, 0.0),
+                child: Icon(Icons.delete, color: Colors.white),
+              )
+          ),
         ],
       ),
     );
@@ -97,6 +136,15 @@ class _HomePageState extends State<HomePage> {
         return;
 
       vertices += val;
+    });
+  }
+
+  void _changeArestaValue(val){
+    setState(() {
+      if (arestas <= 0 && val == -1)
+        return;
+
+      arestas += val;
     });
   }
 
