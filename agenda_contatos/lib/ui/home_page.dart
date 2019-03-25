@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:agenda_contatos/helpers/contact_helper.dart';
 import 'package:agenda_contatos/ui/contact_page.dart';
 import 'package:flutter/material.dart';
-//import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+enum OrderOptions { orderAz, orderZa }
 
 class HomePage extends StatefulWidget {
   @override
@@ -28,6 +30,21 @@ class _HomePageState extends State<HomePage> {
         title: Text('Contatos'),
         backgroundColor: Colors.red,
         centerTitle: true,
+        actions: <Widget>[
+          PopupMenuButton<OrderOptions>(
+            itemBuilder: (context) => <PopupMenuEntry<OrderOptions>>[
+              const PopupMenuItem<OrderOptions>(
+                child: Text('Ordernar de A-Z'),
+                value: OrderOptions.orderAz,
+              ),
+              const PopupMenuItem<OrderOptions>(
+                child: Text('Ordernar de Z-A'),
+                value: OrderOptions.orderZa,
+              )
+            ],
+            onSelected: _orderList,
+          )
+        ],
       ),
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
@@ -115,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(color: Colors.red, fontSize: 20.0),
                         ),
                         onPressed: () {
-//                          launch('tel:${contacts[index].phone}');
+                          launch('tel:${contacts[index].phone}');
                           Navigator.pop(context);
                         },
                       ),
@@ -203,6 +220,24 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         contacts = list;
       });
+    });
+  }
+
+  void _orderList(OrderOptions result) {
+    switch (result) {
+      case OrderOptions.orderAz:
+        contacts.sort((a, z) {
+          return a.name.toLowerCase().compareTo(z.name.toLowerCase());
+        });
+        break;
+      case OrderOptions.orderZa:
+        contacts.sort((a, z) {
+          return z.name.toLowerCase().compareTo(a.name.toLowerCase());
+        });
+    }
+
+    setState(() {
+
     });
   }
 }
