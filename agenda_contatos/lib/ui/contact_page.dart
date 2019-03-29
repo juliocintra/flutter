@@ -80,7 +80,7 @@ class _ContactPageState extends State<ContactPage> {
                   child: TextField(
                     controller: _nameController,
                     focusNode: _nameFocus,
-                    decoration: InputDecoration(labelText: 'Nome'),
+                    decoration: InputDecoration(labelText: 'Nome', errorText: 'Campo obrigatório *'),
                     onChanged: (text) {
                       _userEdited = true;
                       setState(() {

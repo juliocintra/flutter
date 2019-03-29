@@ -5,6 +5,6 @@ import 'package:agenda_contatos/ui/contact_page.dart';
 void main() {
     runApp(MaterialApp(
         home: HomePage(),
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false
     ));
 }
